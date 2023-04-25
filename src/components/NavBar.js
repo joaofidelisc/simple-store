@@ -5,19 +5,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function NavBar() {
   return (
-    <>
-      <Navbar bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand href="#home">Loja do dev</Navbar.Brand>
+    <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
+      <Container>
+        <Navbar.Brand href="/products">DEV'S STORE</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link href="/products">Produtos</Nav.Link>
           </Nav>
-        </Container>
-      </Navbar>
-      <br/>
-    </>
+          <Nav>
+            <Nav.Link href="/shoppingCart">Carrinho de compras</Nav.Link>
+            <Nav.Link href="/perfil">Perfil</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
