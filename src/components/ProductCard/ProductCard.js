@@ -8,16 +8,16 @@ import { ShoppingCartContext } from '../../context/ShoppingCartContext';
 
 function ProductCard({title, imgsrc, description, price, category, id}) {
   const navigate = useNavigate();
-  const { _, handleProducts } = useContext(ShoppingCartContext);
+  const { addedProducts_, handleProducts, handleQuantityProducts_, handleRemoveProduct} = useContext(ShoppingCartContext);
 
   const handleProduct = ()=>{
     const product = {
       title:title,
       imgsrc:imgsrc,
       description:description,
-      price:price,
+      standardPrice:price,
       category:category,
-      id:id
+      id:id,
     }
     handleProducts(product);
     navigate('/purchase/shoppingCart');
