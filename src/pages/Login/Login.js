@@ -6,7 +6,13 @@ import LoginImage from '../../assets/login-screen-background.svg';
 import './login.css';
 
 function Login(){
+
     const navigate = useNavigate();
+
+    const storageData = () =>{
+     //
+    }
+    
     return(
         <div className='d-flex justify-content-center align-items-center vh-100 bg-primary login-container' style={{overflow: 'hidden'}}>
             <div className="col-md-6">
@@ -31,7 +37,7 @@ function Login(){
                         </label>
                     </div>
                     <div className='d-grid mt-2 mb-2'>
-                        <button className='btn btn-primary' onClick={()=>navigate('/products')}>Entrar</button>
+                        <button className='btn btn-primary' onClick={()=>navigate('/purchase/products')}>Entrar</button>
                     </div>
                     <p className='text-center'>
                         <a href=''>Esqueci minha senha</a>

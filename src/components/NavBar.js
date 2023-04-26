@@ -7,14 +7,14 @@ function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
       <Container>
-        <Navbar.Brand href="/products">DEV'S STORE</Navbar.Brand>
+        <Navbar.Brand href="/purchase/products">DEV'S STORE</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/products">Produtos</Nav.Link>
+            <Nav.Link href="/purchase/products">Produtos</Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link href="/shoppingCart">Carrinho de compras</Nav.Link>
+            <Nav.Link href="/purchase/shoppingCart">Carrinho de compras</Nav.Link>
             <Nav.Link href="/perfil">Perfil</Nav.Link>
           </Nav>
         </Navbar.Collapse>

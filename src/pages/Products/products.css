@@ -1,0 +1,9 @@
+.div-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.div-products {
+    flex:auto;
+    margin: 1%;
+}

@@ -11,6 +11,21 @@ import Products from '../pages/Products/Products.js';
 import ShoppingCart from '../pages/ShoppingCart/ShoppingCart.js';
 import Perfil from '../pages/Perfil/Perfil.js';
 
+import { ShoppingCartProvider } from "../context/ShoppingCartContext.js";
+
+
+function PurchaseRoute() {
+  return (
+    <ShoppingCartProvider>
+      <Routes>
+        <Route exact path="/products" element={<Products/>}/>
+        <Route exact path="/shoppingCart" element={<ShoppingCart/>}/>
+      </Routes>
+    </ShoppingCartProvider>
+  );
+}
+
+
 function EntryRoute(){
     return (
         <BrowserRouter>
@@ -18,12 +33,11 @@ function EntryRoute(){
             <Route exact path="/" element={<First/>}/>
             <Route exact path="/login" element={<Login/>}/>
             <Route exact path="/signup" element={<SignUp/>}/>
-            <Route exact path="/products" element={<Products/>}/>
-            <Route exact path="/shoppingCart" element={<ShoppingCart/>}/>
+            <Route exact path="/purchase/*" element={<PurchaseRoute/>}/>
             <Route exact path="/perfil" element={<Perfil/>}/>
           </Routes>
         </BrowserRouter>
-      );
+    );
 }
 
 export default EntryRoute;
