@@ -8,10 +8,6 @@ import './login.css';
 function Login(){
 
     const navigate = useNavigate();
-
-    const storageData = () =>{
-     //
-    }
     
     return(
         <div className='d-flex justify-content-center align-items-center vh-100 bg-primary login-container' style={{overflow: 'hidden'}}>

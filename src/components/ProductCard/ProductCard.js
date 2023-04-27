@@ -1,16 +1,18 @@
-import React, {useState, useContext} from 'react';
+import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../../redux/slices/shoppingCartSlice';
+
 import { useNavigate } from 'react-router-dom';
-import { ShoppingCartContext } from '../../context/ShoppingCartContext';
 
 function ProductCard({title, imgsrc, description, price, category, id}) {
   const navigate = useNavigate();
-  const { addedProducts_, handleProducts, handleQuantityProducts_, handleRemoveProduct} = useContext(ShoppingCartContext);
+  const dispatch = useDispatch();
 
-  const handleProduct = ()=>{
+  const handleProduct = () =>{
     const product = {
       title:title,
       imgsrc:imgsrc,
@@ -19,7 +21,7 @@ function ProductCard({title, imgsrc, description, price, category, id}) {
       category:category,
       id:id,
     }
-    handleProducts(product);
+    dispatch(addProduct(product));
     navigate('/purchase/shoppingCart');
   }
 

@@ -6,22 +6,17 @@ import First from '../pages/First/First.js';
 import Login from '../pages/Login/Login.js';
 import SignUp from '../pages/SignUp/SignUp.js';
 
-//Passar para rotas privadas depois
 import Products from '../pages/Products/Products.js';
 import ShoppingCart from '../pages/ShoppingCart/ShoppingCart.js';
 import Perfil from '../pages/Perfil/Perfil.js';
 
-import { ShoppingCartProvider } from "../context/ShoppingCartContext.js";
-
 
 function PurchaseRoute() {
   return (
-    <ShoppingCartProvider>
       <Routes>
         <Route exact path="/products" element={<Products/>}/>
         <Route exact path="/shoppingCart" element={<ShoppingCart/>}/>
       </Routes>
-    </ShoppingCartProvider>
   );
 }
 

@@ -51,9 +51,6 @@ function SignUp(){
                     <div className='d-grid mt-2'>
                         <button className='btn btn-primary' 
                             onClick={()=>{
-                                // if (name === null || name === '') {
-                                //     setName('invalid');
-                                // }
                                 navigate('/purchase/products');
                             }}
                         >

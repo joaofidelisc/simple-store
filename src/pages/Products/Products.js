@@ -7,15 +7,13 @@ import './products.css';
 
 function Products(){
     const [products, setProducts] = useState([]);
-    const [receivedProducts, setReceivedProducts] = useState(false);
-
+    
     useEffect(()=>{
         fetch('https://fakestoreapi.com/products')
         .then(res=>res.json())
         .then(json=>setProducts(json)).catch(err=>console.log(err));
     }, []);
-    
-
+        
     return(
         <div>
             <NavBar/>
