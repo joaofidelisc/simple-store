@@ -4,6 +4,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     addedProducts: localStorage.getItem("addedProducts") ? JSON.parse(localStorage.getItem("addedProducts")) : [],
     totalPrice: localStorage.getItem("totalPrice") ? JSON.parse(localStorage.getItem("totalPrice")) : 0,
+    appliedCoupons: localStorage.getItem("appliedCoupons") ? JSON.parse(localStorage.getItem("appliedCoupons")) : [],
+    couponsAvailable: ['LIVEN', 'TECH', '15OFF']
 };
 
 const shoppingCartSlice = createSlice({
@@ -49,9 +51,13 @@ const shoppingCartSlice = createSlice({
     },
     updateTotalPriceFromStorage(state, action){
       state.totalPrice = action.payload;
+    },
+    updateAppliedCouponsFromStorage(state, action){
+      state.appliedCoupons.push(action.payload);
+      localStorage.setItem("appliedCoupons", JSON.stringify(state.appliedCoupons));
     }
   },
 });
 
-export const { addProduct, updateTotalPriceFromStorage, updateQuantity, removeProduct } = shoppingCartSlice.actions;
+export const { addProduct, updateTotalPriceFromStorage, updateQuantity, removeProduct, updateAppliedCouponsFromStorage } = shoppingCartSlice.actions;
 export default shoppingCartSlice.reducer;

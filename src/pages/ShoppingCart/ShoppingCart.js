@@ -8,25 +8,46 @@ import { useNavigate } from 'react-router-dom';
 import ShoppingCartCard from '../../components/ShoppingCartCard/ShoppingCartCard.js';
 import ResumeCard from '../../components/ResumeCard/ResumeCard.js';
 import ShoppingCartImage from '../../assets/shopping-cart-screen.svg';
+import { updateTotalPriceFromStorage } from '../../redux/slices/shoppingCartSlice.js';
+import { updateAppliedCouponsFromStorage } from '../../redux/slices/shoppingCartSlice.js';
 
 
 function ShoppingCart(){   
     const [thereIsProduct, setThereIsProduct] = useState(false);
-    const [cupom, setCupom] = useState(null);
+    const [couponText, setCouponText] = useState(null);
+    const [couponApplied, setCouponApplied] = useState(false);
     
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const addedProducts = useSelector(state => state.shoppingCart.addedProducts);
     const totalPrice = useSelector(state => state.shoppingCart.totalPrice);
     
+    const couponsAvailable = useSelector(state => state.shoppingCart.couponsAvailable);
+    const appliedCoupons = useSelector(state => state.shoppingCart.appliedCoupons);
+    
+    const applyCoupon = () =>{
+        if (!appliedCoupons.includes(couponText.toUpperCase()) && couponsAvailable.includes(couponText.toUpperCase())){
+            //pode aplicar
+            dispatch(updateTotalPriceFromStorage(totalPrice*0.8));
+            dispatch(updateAppliedCouponsFromStorage(couponText));
+        }else if(appliedCoupons.includes(couponText.toUpperCase())){
+            //cupom já aplicado
+            console.log('Você já aplicou esse cupom!');
+        }else{
+            //cupom inválido
+            console.log('cupom inválido');
+        }
+    }
+
     useEffect(() => {
-        console.log('Produtos:', addedProducts);
-        console.log('Preço total:', totalPrice);
+        console.log('cupons disponíveis:', couponsAvailable);
+        console.log('cupons aplicados:', appliedCoupons);
         if (totalPrice > 0)
             setThereIsProduct(true);
         else
             setThereIsProduct(false);
-    }, [addedProducts, totalPrice]);
+    }, [addedProducts]);
 
     return(
         <>      
@@ -57,11 +78,11 @@ function ShoppingCart(){
                                         className='form-control' 
                                         id='cupom' 
                                         maxLength={5}
-                                        onChange={e=>setCupom(e.target.value)}
+                                        onChange={e=>setCouponText(e.target.value)}
                                     />
                                 </div>
                                 <div className='mb-2 col-md-6'>
-                                    <button className='btn btn-primary' onClick={(e)=>{e.preventDefault();}}>
+                                    <button className='btn btn-primary' onClick={(e)=>{e.preventDefault(); applyCoupon();}}>
                                         Aplicar cupom
                                     </button>
                                 </div>
