@@ -1,27 +1,25 @@
-import { configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
-import shoppingCartReducer, { updateTotalPriceFromStorage } from './slices/shoppingCartSlice.js';
+import { configureStore } from '@reduxjs/toolkit';
+import shoppingCartReducer, { updateTotalPrice } from './slices/shoppingCartSlice.js';
+import userReducer from './slices/userSlice.js';
 
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
+import { combineReducers } from '@reduxjs/toolkit';
 
-
-const middlewareProducts = (store) => (next) => (action) => {
-  const result = next(action);
-  if (action.type === 'shoppingCart/addProduct' || action.type === 'shoppingCart/updateQuantity' || action.type === 'shoppingCart/removeProduct'){
-    const state = store.getState();
-    const totalPrice = state.shoppingCart.addedProducts.reduce((accumulator, currentProduct) => {
-      return accumulator + currentProduct.priceUpdated;
-    }, 0);
-    localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
-    localStorage.setItem("addedProducts", JSON.stringify(state.shoppingCart.addedProducts));
-    store.dispatch(updateTotalPriceFromStorage(totalPrice));
-  }
-  return result;
+const persistConfig = {
+  key: "root",
+  storage
 };
 
+const reducer = combineReducers({
+  shoppingCart: shoppingCartReducer,
+  user: userReducer
+});
+
+const persistedReducer = persistReducer(persistConfig, reducer);
+
 const store = configureStore({
-  reducer: {
-    shoppingCart: shoppingCartReducer,
-  },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middlewareProducts),
+  reducer: persistedReducer,
 });
 
 export default store;

@@ -13,3 +13,7 @@
         width: 65%;
     }
 }
+
+.signup-container {
+    overflow: hidden;
+}

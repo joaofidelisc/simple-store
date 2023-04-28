@@ -1,16 +1,16 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../../redux/slices/shoppingCartSlice';
-
 import { useNavigate } from 'react-router-dom';
+
 
 function ProductCard({title, imgsrc, description, price, category, id}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const currentUser = useSelector(state => state.user.currentUser);
 
   const handleProduct = () =>{
     const product = {
@@ -20,6 +20,7 @@ function ProductCard({title, imgsrc, description, price, category, id}) {
       standardPrice:price,
       category:category,
       id:id,
+      userEmail: currentUser[0].email
     }
     dispatch(addProduct(product));
     navigate('/purchase/shoppingCart');

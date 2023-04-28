@@ -8,41 +8,25 @@ import { useNavigate } from 'react-router-dom';
 import ShoppingCartCard from '../../components/ShoppingCartCard/ShoppingCartCard.js';
 import ResumeCard from '../../components/ResumeCard/ResumeCard.js';
 import ShoppingCartImage from '../../assets/shopping-cart-screen.svg';
-import { updateTotalPriceFromStorage } from '../../redux/slices/shoppingCartSlice.js';
-import { updateAppliedCouponsFromStorage } from '../../redux/slices/shoppingCartSlice.js';
+import './shoppingCart.css';
 
 
 function ShoppingCart(){   
     const [thereIsProduct, setThereIsProduct] = useState(false);
-    const [couponText, setCouponText] = useState(null);
-    const [couponApplied, setCouponApplied] = useState(false);
     
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
-    const addedProducts = useSelector(state => state.shoppingCart.addedProducts);
     const totalPrice = useSelector(state => state.shoppingCart.totalPrice);
+    const addedProducts = useSelector(state => state.shoppingCart.addedProducts);
     
-    const couponsAvailable = useSelector(state => state.shoppingCart.couponsAvailable);
-    const appliedCoupons = useSelector(state => state.shoppingCart.appliedCoupons);
+    const currentUser = useSelector(state => state.user.currentUser);
+    const addedProductsFiltered = addedProducts.filter(product => product.userEmail === currentUser[0].userEmail);
     
-    const applyCoupon = () =>{
-        if (!appliedCoupons.includes(couponText.toUpperCase()) && couponsAvailable.includes(couponText.toUpperCase())){
-            //pode aplicar
-            dispatch(updateTotalPriceFromStorage(totalPrice*0.8));
-            dispatch(updateAppliedCouponsFromStorage(couponText));
-        }else if(appliedCoupons.includes(couponText.toUpperCase())){
-            //cupom já aplicado
-            console.log('Você já aplicou esse cupom!');
-        }else{
-            //cupom inválido
-            console.log('cupom inválido');
-        }
-    }
-
+    
     useEffect(() => {
-        console.log('cupons disponíveis:', couponsAvailable);
-        console.log('cupons aplicados:', appliedCoupons);
+        console.log('currentUser LOG', currentUser[0].email);
+        console.log('addedProducts:', addedProducts);
+        console.log('produtosFiltrados:', addedProductsFiltered);
         if (totalPrice > 0)
             setThereIsProduct(true);
         else
@@ -54,40 +38,21 @@ function ShoppingCart(){
             <NavBar/>
             {
                 thereIsProduct &&
-                <div className='mx-auto'>
-                    <div className='row'>
-                        <div className='col-8'>
+                <div className='mt-4'>
+                    <div className='row justify-content-around'>
+                        <div className='col-7'>
                             {
                                 addedProducts.map((product)=>(
-                                    <div key={product.id} className='div-products'>
+                                    <div key={product.id} className='shoppingCartCard'>
                                         <ShoppingCartCard title={product.title} imgsrc={product.imgsrc} description={product.description} price={product.priceUpdated} category={product.category} id={product.id} quantity={product.quantity}/>
                                     </div>
 
                                 ))
                             }
                         </div>
-                        <div className='col-3 div-products'>
+                        <div className='col-4 resumeCard'>
                             <ResumeCard price={totalPrice}/>
-                        </div>
-                        <div className='row g-2'>
-                            <form className="d-flex justify-content-between align-items-center">
-                                <div className='mb-2 col-md-6'>
-                                    <input 
-                                        type='text' 
-                                        placeholder='Digite o seu cupom de desconto' 
-                                        className='form-control' 
-                                        id='cupom' 
-                                        maxLength={5}
-                                        onChange={e=>setCouponText(e.target.value)}
-                                    />
-                                </div>
-                                <div className='mb-2 col-md-6'>
-                                    <button className='btn btn-primary' onClick={(e)=>{e.preventDefault(); applyCoupon();}}>
-                                        Aplicar cupom
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                        </div>                   
                     </div>
                 </div>
             }

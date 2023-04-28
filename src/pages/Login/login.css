@@ -13,3 +13,7 @@
         width: 65%;
     }
 }
+
+.login-container {
+    overflow: hidden;
+}

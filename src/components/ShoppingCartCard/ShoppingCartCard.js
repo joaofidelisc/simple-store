@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateQuantity, removeProduct } from '../../redux/slices/shoppingCartSlice';
 
 function ShoppingCartCard({title, imgsrc, description, price, category, id, quantity}) {
   const dispatch = useDispatch();
+  
+  const currentUser = useSelector(state => state.user.currentUser);
+
   return (
-    <Card className="d-flex justify-content-center align-items-center" style={{ width: '55em', height: '15em' }}>
+    <Card className="d-flex justify-content-center align-items-center shoppingcart-container" style={{ width: '50em', height: '15em' }}>
       <div className="row align-items-center" style={{ height: '100%' }}>
         <div className="col-3 d-flex align-items-center justify-content-center" style={{ height: '100%' }}>
-          <Card.Img variant="top" src={imgsrc} style={{ objectFit: 'contain', height: '70%', maxHeight: '100%', width: 'auto' }}/>
+          <Card.Img variant="top" src={imgsrc} style={{ objectFit: 'contain', height: '70%', maxHeight: '100%', marginLeft: '10%'}}/>
         </div>
         <div className="col-3" style={{padding: '1rem'}}>
           <Card.Title style={{ height: '3rem', overflow: 'hidden', textOverflow: 'ellipsis' }}>{title}</Card.Title>
@@ -25,7 +28,7 @@ function ShoppingCartCard({title, imgsrc, description, price, category, id, quan
                 style={{maxWidth: '2%'}}
                 className="d-flex justify-content-center align-items-center"
                 onClick={()=>{
-                  dispatch(updateQuantity({id, operation:'sub'}));
+                  dispatch(updateQuantity({id, operation:'sub',  userEmail: currentUser[0].email}));
                 }}
                 >
                 -
@@ -38,7 +41,7 @@ function ShoppingCartCard({title, imgsrc, description, price, category, id, quan
                 className="d-flex justify-content-center align-items-center"
                 style={{maxWidth: '5%'}}
                 onClick={()=>{
-                  dispatch(updateQuantity({id, operation:'sum'}));
+                  dispatch(updateQuantity({id, operation:'sum', userEmail: currentUser[0].email}));
                 }}
               >
                 +

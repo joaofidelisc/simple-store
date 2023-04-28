@@ -9,13 +9,14 @@ import SignUp from '../pages/SignUp/SignUp.js';
 import Products from '../pages/Products/Products.js';
 import ShoppingCart from '../pages/ShoppingCart/ShoppingCart.js';
 import Perfil from '../pages/Perfil/Perfil.js';
-
+import Payment from "../pages/Payment/Payment.js";
 
 function PurchaseRoute() {
   return (
       <Routes>
         <Route exact path="/products" element={<Products/>}/>
         <Route exact path="/shoppingCart" element={<ShoppingCart/>}/>
+        <Route exact path="/payment" element={<Payment/>}/>
       </Routes>
   );
 }
