@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    addedProducts: localStorage.getItem("addedProducts") ? JSON.parse(localStorage.getItem("addedProducts")) : [],
-    totalPrice: localStorage.getItem("totalPrice") ? JSON.parse(localStorage.getItem("totalPrice")) : 0,
-    appliedCoupons: localStorage.getItem("appliedCoupons") ? JSON.parse(localStorage.getItem("appliedCoupons")) : [],
-    discountGranted: localStorage.getItem("discountGranted") ? JSON.parse(localStorage.getItem("discountGranted")) : 0,
-    couponsAvailable: ['LIVEN', 'TECH', '15OFF'],
+    addedProducts: [],
+    totalPrice: 0,
+    appliedCoupons: [],
+    discountGranted: 0,
+    couponsAvailable: ['TECH', '15OFF'],
 };
 
 const shoppingCartSlice = createSlice({
